@@ -1,0 +1,42 @@
+# Producción en el VPS de Hostinger (Docker + Traefik). No expone puertos: solo Traefik llega al contenedor.
+# Las claves de TikTok se ponen en el entorno del proyecto "reelnext" (hPanel > VPS > Docker), no aquí.
+# Al reiniciar el proyecto, el contenedor baja la última versión de este repositorio.
+services:
+  reelnext:
+    image: node:22-alpine
+    restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - |
+        apk add --no-cache git >/dev/null
+        if [ -d /app/.git ]; then git -C /app pull --ff-only; else git clone --depth 1 https://github.com/areamagica3/reelnext-web.git /app; fi
+        exec sh /app/deploy/start.sh
+    environment:
+      NODE_ENV: production
+      PORT: "4100"
+      HOST: 0.0.0.0
+      BASE_URL: https://reelnext.io
+      DATA_DIR: /data
+      TIKTOK_CLIENT_KEY: ${TIKTOK_CLIENT_KEY:-}
+      TIKTOK_CLIENT_SECRET: ${TIKTOK_CLIENT_SECRET:-}
+    volumes:
+      - reelnext-data:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.reelnext.loadbalancer.server.port=4100
+      - traefik.http.routers.reelnext.rule=Host(`reelnext.io`)
+      - traefik.http.routers.reelnext.entrypoints=websecure
+      - traefik.http.routers.reelnext.tls.certresolver=letsencrypt
+      - traefik.http.routers.reelnext.service=reelnext
+      - traefik.http.routers.reelnext-www.rule=Host(`www.reelnext.io`)
+      - traefik.http.routers.reelnext-www.entrypoints=websecure
+      - traefik.http.routers.reelnext-www.tls.certresolver=letsencrypt
+      - traefik.http.routers.reelnext-www.middlewares=reelnext-www
+      - traefik.http.routers.reelnext-www.service=reelnext
+      - traefik.http.middlewares.reelnext-www.redirectregex.regex=^https://www\.reelnext\.io(.*)
+      - traefik.http.middlewares.reelnext-www.redirectregex.replacement=https://reelnext.io$${1}
+      - traefik.http.middlewares.reelnext-www.redirectregex.permanent=true
+
+volumes:
+  reelnext-data:

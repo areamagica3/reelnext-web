@@ -1,0 +1,6 @@
+node_modules/
+data/
+.env
+# archivos del plan antiguo con nginx/systemd (la producción usa Docker + Traefik)
+deploy/clipsender.service
+deploy/nginx.conf

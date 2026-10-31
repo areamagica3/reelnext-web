@@ -1,0 +1,16 @@
+{
+  "name": "tiktok-publisher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Web multiusuario: inicia sesión con TikTok y sube tus videos MP4 como borrador.",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

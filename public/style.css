@@ -1,0 +1,33 @@
+:root { --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --accent:#111827; --ok:#15803d; --err:#b91c1c; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#0b0f17; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --accent:#f9fafb; --ok:#4ade80; --err:#f87171; }
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+a { color:inherit; }
+.top { display:flex; justify-content:space-between; align-items:center; padding:14px 24px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:8px; }
+.top nav { display:flex; gap:18px; align-items:center; font-size:14px; flex-wrap:wrap; }
+.top nav a { text-decoration:none; color:var(--muted); }
+.brand { font-weight:800; text-decoration:none; font-size:18px; }
+main { max-width:760px; margin:0 auto; padding:32px 16px; }
+.hero h1 { font-size:clamp(26px,5vw,38px); line-height:1.2; margin:0 0 12px; }
+.btn { display:inline-block; background:var(--accent); color:var(--bg); border:0; border-radius:10px; padding:12px 20px; font-weight:700; font-size:15px; cursor:pointer; text-decoration:none; }
+.btn:disabled { opacity:.45; cursor:not-allowed; }
+.hint, .small { color:var(--muted); font-size:14px; }
+.card { border:1px solid var(--line); border-radius:14px; padding:22px; margin:28px 0; }
+.who { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+.who img { border-radius:50%; }
+.drop { display:block; border:2px dashed var(--line); border-radius:12px; padding:22px; text-align:center; cursor:pointer; margin:12px 0; }
+.drop input { display:none; }
+progress { width:100%; margin-bottom:12px; }
+.msg { min-height:1.5em; font-size:14px; }
+.msg.ok { color:var(--ok); } .msg.err { color:var(--err); }
+.actions { display:flex; gap:18px; flex-wrap:wrap; margin-top:12px; }
+.link { background:none; border:0; padding:0; color:var(--muted); text-decoration:underline; cursor:pointer; font-size:14px; }
+.link.danger { color:var(--err); }
+.steps h2 { margin-top:36px; }
+code { background:var(--line); padding:1px 6px; border-radius:6px; font-size:.9em; }
+footer { text-align:center; padding:24px 16px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
+.doc { max-width:760px; margin:0 auto; padding:32px 16px; }
+.doc h1 { margin-top:0; }
+@media (max-width:480px) { .top { padding:12px 16px; } }

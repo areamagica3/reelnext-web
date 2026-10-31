@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ReelNext — Envía tus videos verticales a TikTok</title>
+  <meta name="description" content="Conecta tu cuenta de TikTok y envía tus videos MP4 verticales a tu bandeja de borradores para revisarlos y publicarlos desde la app." />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">ReelNext</a>
+    <nav>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="/terms.html">Términos</a>
+      <a href="/privacy.html">Privacidad</a>
+      <span id="navUser"></span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Envía tus videos verticales a TikTok en un paso</h1>
+      <p>ReelNext es una herramienta web para creadores. Conectas tu cuenta de TikTok, eliges un video MP4 de tu computadora o celular y lo recibes como <strong>borrador</strong> en la app de TikTok, listo para editar el texto, la música y publicar tú mismo.</p>
+      <div id="guest">
+        <a class="btn" href="/auth/login">Conectar con TikTok</a>
+        <p class="hint">Al conectar aceptas los <a href="/terms.html">Términos</a> y la <a href="/privacy.html">Política de privacidad</a>.</p>
+      </div>
+    </section>
+
+    <section id="panel" class="card" hidden>
+      <div class="who">
+        <img id="avatar" alt="" width="48" height="48" />
+        <div>
+          <div class="small">Cuenta de TikTok conectada</div>
+          <strong id="nickname"></strong>
+        </div>
+      </div>
+
+      <h2>Enviar un video</h2>
+      <p class="hint">Formato MP4 vertical, hasta <span id="maxMb">64</span> MB. El video llegará a tu bandeja de TikTok como borrador; nada se publica sin que tú lo confirmes en la app.</p>
+
+      <label class="drop" for="file">
+        <input id="file" type="file" accept="video/mp4,video/quicktime" />
+        <span id="fileName">Elegir archivo de video…</span>
+      </label>
+      <progress id="bar" max="100" value="0" hidden></progress>
+      <button class="btn" id="send" disabled>Enviar a mi TikTok como borrador</button>
+      <p id="msg" class="msg" role="status"></p>
+
+      <div class="actions">
+        <button class="link" id="logout">Cerrar sesión</button>
+        <button class="link danger" id="disconnect">Desconectar y borrar mis datos</button>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="steps">
+      <h2>Cómo funciona</h2>
+      <ol>
+        <li><strong>Conecta tu cuenta.</strong> Inicias sesión con TikTok (Login Kit). Solo pedimos tu nombre y permiso para subir borradores.</li>
+        <li><strong>Elige tu video.</strong> Seleccionas un MP4 vertical desde tu dispositivo.</li>
+        <li><strong>Revisa y publica en TikTok.</strong> El video aparece en tu bandeja de notificaciones de la app, donde añades descripción, música y lo publicas cuando quieras.</li>
+      </ol>
+      <h3>Permisos que solicitamos</h3>
+      <ul>
+        <li><code>user.info.basic</code>: mostrar tu nombre y foto de perfil para que veas qué cuenta está conectada.</li>
+        <li><code>video.upload</code>: enviar el video que tú eliges a tu bandeja de borradores de TikTok.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    ReelNext © 2026 · <a href="/terms.html">Términos de servicio</a> · <a href="/privacy.html">Política de privacidad</a> · <a href="mailto:soporte@reelnext.io">Contacto</a>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
