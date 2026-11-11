@@ -20,8 +20,16 @@ async function load() {
   $("navUser").textContent = user ? user.displayName : "";
   if (!user) return;
   $("nickname").textContent = user.displayName || "Cuenta de TikTok";
-  if (user.avatarUrl) $("avatar").src = user.avatarUrl;
-  else $("avatar").hidden = true;
+  // Si la foto no carga, se muestra la inicial del nombre en un círculo (nunca una imagen rota).
+  const inicial = () => {
+    $("avatar").hidden = true;
+    $("avatarInicial").textContent = (user.displayName || "T").trim().charAt(0).toUpperCase();
+    $("avatarInicial").hidden = false;
+  };
+  if (user.avatarUrl) {
+    $("avatar").onerror = inicial;
+    $("avatar").src = user.avatarUrl;
+  } else inicial();
   maxBytes = (data.maxMb || 64) * 1024 * 1024;
   $("maxMb").textContent = data.maxMb || 64;
 }

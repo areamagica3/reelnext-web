@@ -54,6 +54,7 @@ code { background: var(--surface-3); padding: 1px 6px; border-radius: 6px; font:
 .who { display: flex; align-items: center; gap: 12px; }
 .who img { border-radius: 50%; border: 2px solid var(--border-2); }
 .who strong { font-size: 16px; }
+.avatar-inicial { width: 48px; height: 48px; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--ink); font-weight: 900; font-size: 20px; }
 .drop { display: block; border: 2px dashed var(--border-2); border-radius: var(--r-md); padding: 26px 16px; text-align: center; cursor: pointer; color: var(--text-2); background: var(--surface-1); }
 .drop:hover { border-color: var(--accent); }
 .drop input { display: none; }

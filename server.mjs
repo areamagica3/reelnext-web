@@ -176,6 +176,48 @@ async function accessTokenFor(user) {
   return tokens.access_token;
 }
 
+// ---------- foto de perfil ----------
+// TikTok entrega la foto con un enlace firmado que vence a los pocos días. Por eso se descarga y se guarda en el
+// servidor, y se renueva (con el token del usuario) cada AVATAR_DIAS días o si falta.
+const AVATAR_DIR = path.join(DATA_DIR, "avatars");
+const AVATAR_DIAS = 3;
+fs.mkdirSync(AVATAR_DIR, { recursive: true });
+const avatarFile = (openId) => path.join(AVATAR_DIR, crypto.createHash("sha256").update(openId).digest("hex") + ".img");
+const avatarEnCurso = new Map();
+
+async function bajarAvatar(openId, url) {
+  if (!/^https:\/\//.test(String(url || ""))) return false;
+  const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
+  const tipo = res.headers.get("content-type") || "";
+  if (!res.ok || !tipo.startsWith("image/")) return false;
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (!buf.length || buf.length > 2 * 1024 * 1024) return false;
+  fs.writeFileSync(avatarFile(openId), buf);
+  fs.writeFileSync(avatarFile(openId) + ".tipo", tipo);
+  return true;
+}
+
+// Pide a TikTok el enlace actual de la foto y la descarga. Un solo pedido a la vez por usuario.
+function renovarAvatar(user) {
+  if (avatarEnCurso.has(user.open_id)) return avatarEnCurso.get(user.open_id);
+  const p = (async () => {
+    try {
+      const token = await accessTokenFor(user);
+      const r = await fetch(`${TT}/v2/user/info/?fields=open_id,display_name,avatar_url`, { headers: { Authorization: `Bearer ${token}` } });
+      const perfil = (await r.json().catch(() => ({})))?.data?.user || {};
+      if (perfil.avatar_url) db.prepare("UPDATE users SET avatar_url = ? WHERE open_id = ?").run(perfil.avatar_url, user.open_id);
+      return await bajarAvatar(user.open_id, perfil.avatar_url);
+    } catch (err) {
+      console.error("avatar:", err.message);
+      return false;
+    } finally {
+      avatarEnCurso.delete(user.open_id);
+    }
+  })();
+  avatarEnCurso.set(user.open_id, p);
+  return p;
+}
+
 // ---------- app ----------
 const app = express();
 app.disable("x-powered-by");
@@ -243,6 +285,7 @@ app.get("/auth/callback", async (req, res) => {
     if (!openId) throw new Error("TikTok no devolvió la identidad del usuario.");
 
     saveTokens(openId, tokens, profile);
+    await bajarAvatar(openId, profile.avatar_url).catch(() => false);
     setCookie(res, "oauth_state", "", 0);
     setCookie(res, "sid", makeSession(openId), SESSION_DAYS * 86400);
     res.redirect("/tiktok");
@@ -257,9 +300,24 @@ app.get("/api/me", (req, res) => {
   if (!req.user) return res.json({ ok: true, user: null });
   res.json({
     ok: true,
-    user: { displayName: req.user.display_name, avatarUrl: req.user.avatar_url },
+    user: { displayName: req.user.display_name, avatarUrl: "/api/avatar" },
     maxMb: MAX_VIDEO_BYTES / 1024 / 1024,
   });
+});
+
+// La foto guardada en el servidor (si es vieja se renueva en segundo plano; si no hay, se intenta bajar ahora).
+app.get("/api/avatar", requireUser, async (req, res) => {
+  const f = avatarFile(req.user.open_id);
+  let edad = Infinity;
+  try {
+    edad = Date.now() - fs.statSync(f).mtimeMs;
+  } catch {}
+  if (edad === Infinity) await renovarAvatar(req.user);
+  else if (edad > AVATAR_DIAS * 86400_000) renovarAvatar(req.user);
+  if (!fs.existsSync(f)) return res.status(404).end();
+  res.setHeader("Cache-Control", "private, max-age=3600");
+  res.type(fs.readFileSync(f + ".tipo", "utf8").trim() || "image/jpeg");
+  res.send(fs.readFileSync(f));
 });
 
 app.post("/auth/logout", requireAjax, (_req, res) => {
@@ -280,6 +338,7 @@ app.post("/api/disconnect", requireAjax, requireUser, async (req, res) => {
     }
     db.prepare("DELETE FROM uploads WHERE open_id = ?").run(req.user.open_id);
     db.prepare("DELETE FROM users WHERE open_id = ?").run(req.user.open_id);
+    for (const f of [avatarFile(req.user.open_id), avatarFile(req.user.open_id) + ".tipo"]) fs.rmSync(f, { force: true });
     setCookie(res, "sid", "", 0);
     res.json({ ok: true });
   } catch (err) {
