@@ -221,7 +221,7 @@ app.get("/auth/login", (req, res) => {
 
 app.get("/auth/callback", async (req, res) => {
   try {
-    if (req.query.error) return res.redirect("/?login=cancelado");
+    if (req.query.error) return res.redirect("/tiktok?login=cancelado");
     const expected = parseCookies(req.headers.cookie).oauth_state;
     if (!expected || expected !== String(req.query.state || "")) {
       return res.status(400).send("Sesión de inicio no válida. Vuelve a intentarlo.");
@@ -245,7 +245,7 @@ app.get("/auth/callback", async (req, res) => {
     saveTokens(openId, tokens, profile);
     setCookie(res, "oauth_state", "", 0);
     setCookie(res, "sid", makeSession(openId), SESSION_DAYS * 86400);
-    res.redirect("/");
+    res.redirect("/tiktok");
   } catch (err) {
     console.error("callback:", err.message);
     res.status(500).send("No se pudo completar el inicio de sesión con TikTok.");
@@ -408,6 +408,9 @@ app.get("/api/status/:publishId", requireUser, async (req, res) => {
   }
 });
 
+// La herramienta de TikTok vive en /tiktok (la portada de ReelNext ocupa /). /auth/callback sigue igual: es la dirección aprobada por TikTok.
+// Express no distingue /tiktok de /tiktok/ en las rutas: se mira la dirección exacta para no redirigir en círculo.
+app.use((req, res, next) => (req.method === "GET" && /^\/tiktok\/(\?|$)/.test(req.originalUrl) ? res.redirect(301, "/tiktok") : next()));
 app.use(express.static(path.join(HERE, "public"), { extensions: ["html"] }));
 
 const HOST = env("HOST") || "127.0.0.1"; // en Docker se pone 0.0.0.0: el contenedor no publica puertos, solo Traefik llega a él

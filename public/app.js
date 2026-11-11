@@ -93,13 +93,13 @@ $("send").addEventListener("click", async () => {
 
 $("logout").addEventListener("click", async () => {
   await post("/auth/logout");
-  location.href = "/";
+  location.href = "/tiktok";
 });
 
 $("disconnect").addEventListener("click", async () => {
   if (!confirm("Se revocará el acceso a TikTok y se borrarán tus datos de ReelNext. ¿Continuar?")) return;
   const r = await post("/api/disconnect").then((x) => x.json()).catch(() => ({}));
-  if (r.ok) location.href = "/";
+  if (r.ok) location.href = "/tiktok";
   else say(r.error || "No se pudo desconectar.", "err");
 });
 
