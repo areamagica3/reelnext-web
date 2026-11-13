@@ -2,6 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <!-- Google Analytics (cuenta ReelNext, etiqueta GTM-MQ7Z6DCQ): solo en reelnext.io y sus subdominios, no en la PC ni en pruebas -->
+  <script>
+    if (/(^|\.)reelnext\.io$/.test(location.hostname)) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () {
+        dataLayer.push(arguments);
+      };
+      gtag("js", new Date());
+      var gaTag = document.createElement("script");
+      gaTag.async = true;
+      gaTag.src = "https://www.googletagmanager.com/gtm.js?id=GTM-MQ7Z6DCQ";
+      document.head.appendChild(gaTag);
+    }
+  </script>
   <link rel="icon" type="image/png" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0f1113" />
