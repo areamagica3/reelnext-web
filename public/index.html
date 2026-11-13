@@ -39,174 +39,153 @@
   <meta name="twitter:image" content="https://reelnext.io/og.png" />
   <!-- Datos estructurados para buscadores: quién es ReelNext, qué es la app y las preguntas frecuentes (las mismas de la página) -->
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://reelnext.io/#organizacion","name":"ReelNext","url":"https://reelnext.io/","logo":"https://reelnext.io/logo.png","email":"soporte@reelnext.io"},{"@type":"WebSite","@id":"https://reelnext.io/#sitio","name":"ReelNext","url":"https://reelnext.io/","inLanguage":"es","publisher":{"@id":"https://reelnext.io/#organizacion"}},{"@type":"SoftwareApplication","name":"ReelNext Studio","url":"https://reelnext.io/","applicationCategory":"MultimediaApplication","operatingSystem":"Web","inLanguage":"es","description":"Creá videos verticales con inteligencia artificial: elegís un tema y ReelNext arma guion, voz, imágenes y subtítulos. Listos para TikTok, Reels y Shorts.","image":"https://reelnext.io/og.png","publisher":{"@id":"https://reelnext.io/#organizacion"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Necesito saber editar videos?","acceptedAnswer":{"@type":"Answer","text":"No. Elegís el tema y las opciones; ReelNext hace el guion, la voz, las imágenes y el montaje."}},{"@type":"Question","name":"¿Cómo entro?","acceptedAnswer":{"@type":"Answer","text":"Con tu cuenta de Google, en un paso. La primera vez se crea tu cuenta de ReelNext."}},{"@type":"Question","name":"¿Cuánto cuesta?","acceptedAnswer":{"@type":"Answer","text":"Cada video consume créditos según lo que use (imágenes, voz, duración) y ves el precio antes de crearlo. Los créditos vienen con los planes mensuales, que podés ver dentro del estudio."}},{"@type":"Question","name":"¿En qué formato sale el video?","acceptedAnswer":{"@type":"Answer","text":"MP4 vertical de 1080×1920 a 30 cuadros por segundo, el formato de TikTok, Reels y Shorts."}},{"@type":"Question","name":"¿Puedo publicarlo en mis redes?","acceptedAnswer":{"@type":"Answer","text":"Sí. Descargás el video y la descripción con hashtags lista para copiar. Para TikTok, además, desde reelnext.io/tiktok podés mandarlo a tu bandeja de borradores."}},{"@type":"Question","name":"¿Por cuánto tiempo guardan mis videos?","acceptedAnswer":{"@type":"Answer","text":"Mientras tengas un plan activo. Si el plan vence, tenés unos días para renovarlo antes de que se oculten; el detalle está en los Términos del servicio."}}]}]}</script>
-  <link rel="stylesheet" href="/style.css?v=3" />
+  <link rel="stylesheet" href="/landing.css?v=1" />
+  <link rel="preload" href="/fonts/unbounded-v12.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/space-grotesk-v22.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body class="landing">
-  <header class="studio-header">
-    <a class="studio-brand" href="/">
-      <img class="studio-brand__logo" src="/logo.png" alt="ReelNext" width="42" height="42" />
-      <div>
-        <div class="studio-brand__title">REELNEXT <span class="accent">STUDIO</span></div>
-        <div class="studio-brand__tagline">Videos verticales con IA</div>
-      </div>
-    </a>
-    <nav class="studio-nav">
-      <a href="#como-funciona">Cómo funciona</a>
-      <a href="#que-crear">Qué podés crear</a>
-      <a href="#preguntas">Preguntas</a>
-      <a class="btn-ghost" href="https://studio.reelnext.io/auth/google/login">Entrar</a>
-    </nav>
+  <header class="barra" id="barra">
+    <div class="envolver">
+      <a class="logo" href="/"><img src="/logo.png" alt="ReelNext" width="40" height="40" />REELNEXT <span>STUDIO</span></a>
+      <nav aria-label="Secciones">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#que-crear">Qué podés crear</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <a class="entrar" href="https://studio.reelnext.io/auth/google/login">Entrar</a>
+    </div>
   </header>
 
   <main>
-    <!-- Portada -->
-    <section class="hero">
-      <div class="hero__text">
-        <span class="pill">VIDEOS VERTICALES CON IA</span>
-        <h1>Del tema al video listo para <span class="accent">TikTok, Reels y Shorts</span>, en minutos.</h1>
-        <p class="lead">ReelNext es un generador de videos con inteligencia artificial: elegís un tema y escribe el guion, pone la voz, arma las imágenes, la música y los subtítulos. Vos lo revisás y lo descargás listo para subir.</p>
-        <div class="hero__cta">
-          <a class="btn-google" href="https://studio.reelnext.io/auth/google/login">
-            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
-            Empezar con Google
-          </a>
-          <a class="btn-ghost" href="#como-funciona">Ver cómo funciona</a>
-        </div>
-        <p class="hint">Entrás o creás tu cuenta en un paso. Al continuar aceptás los <a href="https://studio.reelnext.io/terminos">Términos del servicio</a>.</p>
-      </div>
-
-      <!-- Celular de muestra (todo en CSS, sin videos pesados) -->
-      <div class="phone" aria-hidden="true">
-        <div class="phone__screen">
-          <div class="phone__glow"></div>
-          <div class="phone__top">
-            <span class="phone__tag">TOP 5</span>
-            <span class="phone__title">Datos que nadie te contó</span>
+    <!-- Portada: texto a la izquierda y tres celulares en 3D con videos reales a la derecha (abajo, en el celular) -->
+    <section class="portada" id="portada">
+      <canvas id="escena3d" aria-hidden="true"></canvas>
+      <div class="envolver">
+        <div class="texto">
+          <span class="pildora"><b></b>Videos verticales con IA</span>
+          <h1>Del tema al video listo para <span class="degrade">TikTok, Reels y Shorts</span>, en minutos.</h1>
+          <p class="bajada">ReelNext es un generador de videos con inteligencia artificial: elegís un tema y escribe el guion, pone la voz, arma las imágenes, la música y los subtítulos. Vos lo revisás y lo descargás listo para subir.</p>
+          <div class="acciones">
+            <a class="btn btn-luz" href="https://studio.reelnext.io/auth/google/login">
+              <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+              Empezar con Google
+            </a>
+            <a class="btn btn-linea" href="#como-funciona">Ver cómo funciona</a>
           </div>
-          <div class="phone__number">3.000</div>
-          <div class="phone__label">explosiones por minuto</div>
-          <div class="phone__caption">
-            <span>Tu</span> <span>auto</span> <span>hace</span> <span class="k">3.000</span> <span class="k">explosiones</span> <span>por</span> <span>minuto</span>
+          <p class="letra-chica">Entrás o creás tu cuenta en un paso. Al continuar aceptás los <a href="https://studio.reelnext.io/terminos">Términos del servicio</a>.</p>
+          <div class="respaldo" aria-hidden="true">
+            <div class="tel t1"><video data-v="short" muted loop playsinline preload="none"></video></div>
+            <div class="tel t2"><video data-v="holistico" muted loop playsinline preload="none"></video></div>
+            <div class="tel t3"><video data-v="versus" muted loop playsinline preload="none"></video></div>
           </div>
-          <div class="phone__bar"><i></i></div>
         </div>
       </div>
+      <button class="tocar" id="tocar" type="button">▶ Tocá para ver los videos</button>
+      <div class="bajar" aria-hidden="true">Bajá<i></i></div>
     </section>
 
+    <div class="cinta" aria-hidden="true">
+      <div>
+        <span>GUION</span><span class="lleno degrade">VOZ</span><span>IMÁGENES</span><span class="lleno degrade">MÚSICA</span><span>SUBTÍTULOS</span><span class="lleno degrade">EN MINUTOS</span>
+        <span>GUION</span><span class="lleno degrade">VOZ</span><span>IMÁGENES</span><span class="lleno degrade">MÚSICA</span><span>SUBTÍTULOS</span><span class="lleno degrade">EN MINUTOS</span>
+      </div>
+    </div>
+
     <!-- Cómo funciona -->
-    <section class="block" id="como-funciona">
-      <h2>Cómo crear un video con IA en 3 pasos</h2>
-      <ol class="steps3">
-        <li>
-          <span class="num">1</span>
-          <h3>Elegís el tema</h3>
-          <p>Escribís de qué querés hablar y elegís el formato, la voz y la duración.</p>
-        </li>
-        <li>
-          <span class="num">2</span>
-          <h3>La IA arma el video</h3>
-          <p>Guion, locución, imágenes, música y subtítulos con la palabra clave resaltada. Mirás el avance en vivo.</p>
-        </li>
-        <li>
-          <span class="num">3</span>
-          <h3>Lo descargás y lo subís</h3>
-          <p>Te queda un MP4 vertical 1080×1920 listo para TikTok, Instagram Reels y YouTube Shorts, con la descripción y los hashtags para copiar.</p>
-        </li>
-      </ol>
+    <section class="bloque" id="como-funciona">
+      <div class="envolver">
+        <h2 class="titulo-seccion aparece">Cómo crear un video con IA en <span class="degrade">3 pasos</span></h2>
+        <ol class="pasos" style="list-style:none;padding:0;margin-bottom:0">
+          <li class="paso aparece"><span class="num degrade">01</span><div><h3>Elegís el tema</h3><p>Escribís de qué querés hablar y elegís el formato, la voz y la duración.</p></div></li>
+          <li class="paso aparece"><span class="num degrade">02</span><div><h3>La IA arma el video</h3><p>Guion, locución, imágenes, música y subtítulos con la palabra clave resaltada. Mirás el avance en vivo.</p></div></li>
+          <li class="paso aparece"><span class="num degrade">03</span><div><h3>Lo descargás y lo subís</h3><p>Te queda un MP4 vertical 1080×1920 listo para TikTok, Instagram Reels y YouTube Shorts, con la descripción y los hashtags para copiar.</p></div></li>
+        </ol>
+      </div>
     </section>
 
     <!-- Qué podés crear -->
-    <section class="block" id="que-crear">
-      <h2>Qué videos podés crear con ReelNext</h2>
-      <div class="cards3">
-        <article class="feature">
-          <div class="feature__icon">🎬</div>
-          <h3>Videos</h3>
-          <p>Mini documentales y rankings con imágenes generadas por IA, voz natural y música según el tema.</p>
-        </article>
-        <article class="feature">
-          <div class="feature__icon">📋</div>
-          <h3>Listas</h3>
-          <p>Frases, consejos y listas que se leen de un vistazo, con un diseño que engancha en los primeros segundos.</p>
-        </article>
-        <article class="feature">
-          <div class="feature__icon">📊</div>
-          <h3>Explicativos</h3>
-          <p>Motion graphics animados: números que cuentan, comparaciones, pasos y diagramas que se arman mientras la voz explica.</p>
-        </article>
-      </div>
-      <ul class="checks">
-        <li>Voces naturales en español</li>
-        <li>Subtítulos con la palabra clave en color</li>
-        <li>Música que acompaña el tono</li>
-        <li>Descripción y hashtags listos para copiar</li>
-        <li>Ves el precio en créditos antes de crear</li>
-        <li>Tus videos quedan guardados en tu cuenta</li>
-      </ul>
-    </section>
-
-    <!-- Integración con TikTok -->
-    <section class="block block--split" id="tiktok">
-      <div>
-        <h2>Mandá tus videos a TikTok</h2>
-        <p class="lead">Conectás tu cuenta de TikTok y el video te llega a la app como <strong>borrador</strong>: agregás la música o el texto y lo publicás vos. Nada se publica sin tu confirmación.</p>
-        <a class="btn-primary" href="/tiktok">Enviar un video a TikTok</a>
-      </div>
-      <div class="card-dark">
-        <h3>Permisos que solicitamos a TikTok</h3>
-        <ul class="perms">
-          <li><code>user.info.basic</code>: mostrar tu nombre y foto para que veas qué cuenta está conectada.</li>
-          <li><code>video.upload</code>: enviar el video que vos elegís a tu bandeja de borradores de TikTok.</li>
-          <li><code>video.publish</code>: publicar en tu perfil el video que vos elegís desde el estudio, con la privacidad y las opciones que marcás antes de enviar. Solo se pide al conectar tu cuenta dentro del estudio.</li>
+    <section class="bloque" id="que-crear" style="padding-top:0">
+      <div class="envolver">
+        <h2 class="titulo-seccion aparece">Qué videos podés crear con ReelNext</h2>
+        <div class="formatos">
+          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">VIDEOS</span><div class="marco"><video data-v="short" muted loop playsinline preload="none"></video></div><h3>Videos</h3><p>Mini documentales y rankings con imágenes generadas por IA, voz natural y música según el tema.</p></article>
+          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">VIRALES</span><div class="marco"><video data-v="viral" muted loop playsinline preload="none"></video></div><h3>Virales</h3><p>Un gancho fuerte, frases cortas con ritmo y una portada que frena el dedo.</p></article>
+          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">EXPLICATIVOS</span><div class="marco"><video data-v="explicativo" muted loop playsinline preload="none"></video></div><h3>Explicativos</h3><p>Motion graphics animados: números que cuentan, comparaciones, pasos y diagramas que se arman mientras la voz explica.</p></article>
+          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">LISTAS</span><div class="marco"><video data-v="lista" muted loop playsinline preload="none"></video></div><h3>Listas</h3><p>Frases, consejos y listas que se leen de un vistazo, con un diseño que engancha en los primeros segundos.</p></article>
+        </div>
+        <ul class="trae" style="list-style:none;padding:0">
+          <li><div class="aparece" style="height:100%"><b>🎙️</b>Voces naturales en español</div></li>
+          <li><div class="aparece" style="height:100%"><b>🔤</b>Subtítulos con la palabra clave en color</div></li>
+          <li><div class="aparece" style="height:100%"><b>🎵</b>Música que acompaña el tono</div></li>
+          <li><div class="aparece" style="height:100%"><b>#️⃣</b>Descripción y hashtags listos para copiar</div></li>
+          <li><div class="aparece" style="height:100%"><b>💳</b>Ves el precio en créditos antes de crear</div></li>
+          <li><div class="aparece" style="height:100%"><b>📁</b>Tus videos quedan guardados en tu cuenta</div></li>
         </ul>
-        <p class="hint">Podés desconectar tu cuenta y borrar tus datos cuando quieras.</p>
       </div>
     </section>
 
-    <!-- Preguntas -->
-    <section class="block" id="preguntas">
-      <h2>Preguntas frecuentes</h2>
-      <div class="faq">
-        <details>
-          <summary>¿Necesito saber editar videos?</summary>
-          <p>No. Elegís el tema y las opciones; ReelNext hace el guion, la voz, las imágenes y el montaje.</p>
-        </details>
-        <details>
-          <summary>¿Cómo entro?</summary>
-          <p>Con tu cuenta de Google, en un paso. La primera vez se crea tu cuenta de ReelNext.</p>
-        </details>
-        <details>
-          <summary>¿Cuánto cuesta?</summary>
-          <p>Cada video consume créditos según lo que use (imágenes, voz, duración) y ves el precio antes de crearlo. Los créditos vienen con los planes mensuales, que podés ver dentro del estudio.</p>
-        </details>
-        <details>
-          <summary>¿En qué formato sale el video?</summary>
-          <p>MP4 vertical de 1080×1920 a 30 cuadros por segundo, el formato de TikTok, Reels y Shorts.</p>
-        </details>
-        <details>
-          <summary>¿Puedo publicarlo en mis redes?</summary>
-          <p>Sí. Descargás el video y la descripción con hashtags lista para copiar. Para TikTok, además, desde reelnext.io/tiktok podés mandarlo a tu bandeja de borradores.</p>
-        </details>
-        <details>
-          <summary>¿Por cuánto tiempo guardan mis videos?</summary>
-          <p>Mientras tengas un plan activo. Si el plan vence, tenés unos días para renovarlo antes de que se oculten; el detalle está en los Términos del servicio.</p>
-        </details>
+    <!-- Integración con TikTok (los permisos se muestran tal cual: TikTok revisa esta página) -->
+    <section class="bloque" id="tiktok" style="padding-top:0">
+      <div class="envolver">
+        <div class="tiktok aparece">
+          <div>
+            <h2 class="titulo-seccion">Mandá tus videos <span class="degrade">a TikTok</span></h2>
+            <p class="sub-seccion">Conectás tu cuenta de TikTok y el video te llega a la app como <strong>borrador</strong>: agregás la música o el texto y lo publicás vos. Nada se publica sin tu confirmación.</p>
+            <a class="btn btn-luz" href="/tiktok">Enviar un video a TikTok</a>
+          </div>
+          <div class="tiktok-lado">
+            <div class="borrador"><video data-v="promo" muted loop playsinline preload="none"></video><span>📥 Llegó a tus borradores</span></div>
+            <div class="permisos">
+              <h3>Permisos que solicitamos a TikTok</h3>
+              <ul>
+                <li><code>user.info.basic</code>: mostrar tu nombre y foto para que veas qué cuenta está conectada.</li>
+                <li><code>video.upload</code>: enviar el video que vos elegís a tu bandeja de borradores de TikTok.</li>
+                <li><code>video.publish</code>: publicar en tu perfil el video que vos elegís desde el estudio, con la privacidad y las opciones que marcás antes de enviar. Solo se pide al conectar tu cuenta dentro del estudio.</li>
+              </ul>
+              <p>Podés desconectar tu cuenta y borrar tus datos cuando quieras.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Preguntas (las mismas 6 de los datos estructurados de arriba) -->
+    <section class="bloque" id="preguntas" style="padding-top:0">
+      <div class="envolver">
+        <h2 class="titulo-seccion aparece">Preguntas frecuentes</h2>
+        <div class="preguntas">
+          <details class="aparece"><summary>¿Necesito saber editar videos?</summary><p>No. Elegís el tema y las opciones; ReelNext hace el guion, la voz, las imágenes y el montaje.</p></details>
+          <details class="aparece"><summary>¿Cómo entro?</summary><p>Con tu cuenta de Google, en un paso. La primera vez se crea tu cuenta de ReelNext.</p></details>
+          <details class="aparece"><summary>¿Cuánto cuesta?</summary><p>Cada video consume créditos según lo que use (imágenes, voz, duración) y ves el precio antes de crearlo. Los créditos vienen con los planes mensuales, que podés ver dentro del estudio.</p></details>
+          <details class="aparece"><summary>¿En qué formato sale el video?</summary><p>MP4 vertical de 1080×1920 a 30 cuadros por segundo, el formato de TikTok, Reels y Shorts.</p></details>
+          <details class="aparece"><summary>¿Puedo publicarlo en mis redes?</summary><p>Sí. Descargás el video y la descripción con hashtags lista para copiar. Para TikTok, además, desde reelnext.io/tiktok podés mandarlo a tu bandeja de borradores.</p></details>
+          <details class="aparece"><summary>¿Por cuánto tiempo guardan mis videos?</summary><p>Mientras tengas un plan activo. Si el plan vence, tenés unos días para renovarlo antes de que se oculten; el detalle está en los Términos del servicio.</p></details>
+        </div>
       </div>
     </section>
 
     <!-- Llamada final -->
-    <section class="final">
-      <h2>Tu próximo video está a un tema de distancia.</h2>
-      <a class="btn-google" href="https://studio.reelnext.io/auth/google/login">Empezar con Google</a>
+    <section class="cierre">
+      <div class="envolver">
+        <h2 class="aparece">Tu próximo video está a <span class="degrade">un tema</span> de distancia.</h2>
+        <a class="btn btn-luz aparece" href="https://studio.reelnext.io/auth/google/login">Empezar con Google</a>
+      </div>
     </section>
   </main>
 
   <footer>
-    ReelNext © 2026 ·
-    <a href="https://studio.reelnext.io/terminos">Términos del servicio</a> ·
-    <a href="/privacy.html">Política de privacidad</a> ·
-    <a href="/terms.html">Términos de la herramienta de TikTok</a> ·
-    <a href="mailto:soporte@reelnext.io">Contacto</a>
+    <div class="envolver">
+      <span>ReelNext © 2026</span>
+      <nav aria-label="Legales">
+        <a href="https://studio.reelnext.io/terminos">Términos del servicio</a>
+        <a href="/privacy.html">Política de privacidad</a>
+        <a href="/terms.html">Términos de la herramienta de TikTok</a>
+        <a href="mailto:soporte@reelnext.io">Contacto</a>
+      </nav>
+    </div>
   </footer>
+
+  <script src="/vendor/three-r128.min.js" defer></script>
+  <script src="/landing.js?v=1" defer></script>
 </body>
 </html>

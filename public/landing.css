@@ -1,0 +1,187 @@
+/* Portada de reelnext.io (diseño 3D, 2026-11-13). Solo la usa index.html: /tiktok sigue con style.css.
+   Letras y librería 3D alojadas acá mismo (fonts/, vendor/) porque la política de seguridad solo deja cargar archivos propios. */
+@font-face { font-family: "Unbounded"; font-style: normal; font-weight: 200 900; font-display: swap; src: url("fonts/unbounded-v12.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap; src: url("fonts/space-grotesk-v22.woff2") format("woff2"); }
+:root {
+  color-scheme: dark;
+  --bg: #0f1113;
+  --bg2: #1a1c1f;
+  --ink: #f7f7f8;
+  --muted: #a8abb0;
+  --lima: #d1fe17;
+  --cian: #22d3ee;
+  --rosa: #f472b6;
+  --naranja: #fb923c;
+  --linea: #2a2e33;
+  --g: 16px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Space Grotesk", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+.envolver { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.degrade { color: var(--lima); }
+
+/* ---------- barra ---------- */
+.barra { position: fixed; inset: 0 0 auto; z-index: 20; padding-top: env(safe-area-inset-top, 0px); transition: background .3s, backdrop-filter .3s; }
+.barra.solida { background: #0f1113e6; backdrop-filter: blur(14px); border-bottom: 1px solid var(--linea); }
+.barra .envolver { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 900; font-size: 19px; letter-spacing: -.5px; }
+.logo img { width: 40px; height: 40px; border-radius: 10px; display: block; box-shadow: 0 0 22px #f472b655; }
+.logo span { color: var(--lima); }
+.barra nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
+.barra nav a { text-decoration: none; }
+.barra nav a:hover { color: var(--ink); }
+.entrar { padding: 9px 16px; border-radius: 999px; border: 1px solid #ffffff33; text-decoration: none; font-weight: 700; font-size: 14px; }
+.entrar:hover { border-color: var(--lima); color: var(--lima); }
+
+/* ---------- portada 3D ---------- */
+.portada { position: relative; height: 100svh; min-height: 640px; overflow: hidden; background: radial-gradient(110% 80% at 75% 25%, #20261a 0%, #131518 50%, var(--bg) 100%); }
+#escena3d { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.portada .envolver { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: center; pointer-events: none; }
+.portada .texto { max-width: min(540px, 47vw); pointer-events: auto; }
+@media (max-width: 760px) { .portada .texto { max-width: none; } }
+@media (max-width: 440px) {
+  .logo { font-size: 15px; gap: 9px; }
+  .logo img { width: 32px; height: 32px; border-radius: 8px; }
+  .entrar { padding: 7px 12px; font-size: 13px; }
+}
+.pildora { display: inline-flex; gap: 8px; align-items: center; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--linea); background: var(--bg2); font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: #d0d1d4; }
+.pildora b { width: 7px; height: 7px; border-radius: 50%; background: var(--lima); box-shadow: 0 0 10px var(--lima); animation: late 1.6s ease-in-out infinite; }
+@keyframes late { 50% { opacity: .3; } }
+h1 { font: 900 clamp(38px, 6.2vw, 78px)/.98 "Unbounded", sans-serif; letter-spacing: -.03em; margin: 18px 0 18px; }
+h1 span { display: inline-block; opacity: 0; transform: translateY(26px); animation: entra .8s cubic-bezier(.2,.8,.2,1) forwards; }
+@keyframes entra { to { opacity: 1; transform: none; } }
+.bajada { font-size: clamp(16px, 1.6vw, 19px); line-height: 1.5; color: var(--muted); margin: 0; opacity: 0; animation: entra .8s .45s cubic-bezier(.2,.8,.2,1) forwards; transform: translateY(20px); }
+.acciones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; opacity: 0; animation: entra .8s .65s cubic-bezier(.2,.8,.2,1) forwards; transform: translateY(20px); }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 22px; border-radius: 999px; font-weight: 700; font-size: 16px; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+.btn-luz { background: var(--lima); color: #0f1113; box-shadow: 0 0 30px #d1fe1755; }
+.btn-luz:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 46px #d1fe1799; }
+.btn-luz svg { width: 18px; height: 18px; }
+.btn-linea { border: 1px solid #ffffff33; color: var(--ink); }
+.btn-linea:hover { border-color: var(--lima); transform: translateY(-2px); }
+.letra-chica { margin-top: 14px; font-size: 12.5px; color: var(--muted); opacity: 0; animation: entra .8s .8s forwards; }
+.bajar { position: absolute; z-index: 2; left: 50%; bottom: 22px; translate: -50% 0; font-size: 12px; color: #8e8ab0; letter-spacing: .14em; text-transform: uppercase; display: grid; place-items: center; gap: 6px; }
+.bajar i { width: 1px; height: 34px; background: linear-gradient(var(--lima), transparent); animation: baja 1.8s ease-in-out infinite; }
+@keyframes baja { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+.tocar { position: absolute; z-index: 3; right: 16px; bottom: 70px; display: none; padding: 9px 14px; border-radius: 999px; border: 0; background: var(--lima); color: #0a0814; font: 700 13px "Space Grotesk", sans-serif; }
+
+/* respaldo sin 3D: celulares en CSS */
+.respaldo { display: none; position: relative; height: 420px; perspective: 1000px; margin-top: 22px; }
+.sin3d .respaldo { display: block; }
+.sin3d #escena3d { display: none; }
+.respaldo .tel { position: absolute; width: 150px; height: 300px; border-radius: 26px; padding: 8px; background: #111; box-shadow: 0 0 0 1px #ffffff22, 0 26px 50px #000c, 0 0 46px var(--brillo); }
+.respaldo .tel video { width: 100%; height: 100%; object-fit: cover; border-radius: 19px; display: block; }
+.respaldo .t1 { --brillo: #22d3ee66; left: 0; top: 50px; transform: rotateY(26deg); }
+.respaldo .t2 { --brillo: #f472b688; left: 50%; margin-left: -75px; top: 10px; z-index: 2; }
+.respaldo .t3 { --brillo: #fb923c66; right: 0; top: 50px; transform: rotateY(-26deg); }
+
+/* ---------- cinta de palabras ---------- */
+.cinta { border-block: 1px solid var(--linea); overflow: hidden; padding: 22px 0; background: var(--bg2); }
+.cinta div { display: flex; width: max-content; gap: 48px; animation: corre 26s linear infinite; font: 900 clamp(34px, 6vw, 72px) "Unbounded", sans-serif; letter-spacing: -.02em; white-space: nowrap; }
+.cinta span { color: transparent; -webkit-text-stroke: 1.4px #ffffff40; }
+.cinta span.lleno { -webkit-text-stroke: 0; }
+@keyframes corre { to { transform: translateX(-50%); } }
+
+/* ---------- secciones ---------- */
+section.bloque { padding: clamp(70px, 10vw, 130px) 0; position: relative; }
+.titulo-seccion { font: 800 clamp(30px, 4.4vw, 54px)/1.04 "Unbounded", sans-serif; letter-spacing: -.03em; margin: 0 0 16px; max-width: 760px; }
+.sub-seccion { color: var(--muted); font-size: 17px; line-height: 1.55; max-width: 560px; margin: 0; }
+.aparece { opacity: .45; transform: translateY(22px); transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
+.aparece.visto { opacity: 1; transform: none; }
+
+/* cómo funciona: pasos escalonados */
+.pasos { display: grid; gap: 18px; margin-top: 50px; }
+.paso { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: start; padding: 26px; border-radius: 22px; background: var(--bg2); border: 1px solid var(--linea); max-width: 720px; }
+.paso:nth-child(2) { margin-left: clamp(0px, 12vw, 180px); }
+.paso:nth-child(3) { margin-left: clamp(0px, 24vw, 360px); }
+.paso .num { font: 900 54px/1 "Unbounded", sans-serif; }
+.paso h3 { margin: 4px 0 8px; font-size: 22px; }
+.paso p { margin: 0; color: var(--muted); line-height: 1.55; }
+
+/* formatos: tarjetas que se inclinan */
+.formatos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 50px; perspective: 1200px; }
+.tarjeta { position: relative; border-radius: 24px; padding: 14px; background: var(--bg2); border: 1px solid var(--linea); transform-style: preserve-3d; transition: transform .15s ease-out, box-shadow .3s; will-change: transform; }
+.tarjeta:hover { box-shadow: 0 30px 60px #000a, 0 0 34px #d1fe1744; border-color: #d1fe1766; }
+.tarjeta .marco { aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; background: #000; transform: translateZ(40px); box-shadow: 0 18px 40px #000b; }
+.tarjeta video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tarjeta h3 { margin: 16px 4px 6px; font: 700 19px "Unbounded", sans-serif; transform: translateZ(26px); }
+.tarjeta p { margin: 0 4px 6px; color: var(--muted); font-size: 14px; line-height: 1.45; transform: translateZ(18px); }
+.tarjeta .chip { position: absolute; top: 24px; left: 24px; z-index: 2; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .06em; background: var(--tono); color: #0a0814; transform: translateZ(60px); }
+
+/* lista de lo que trae */
+.trae { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-top: 40px; }
+.trae div { display: flex; gap: 12px; align-items: center; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--linea); background: var(--bg2); font-weight: 500; }
+.trae b { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: #ffffff10; font-size: 17px; flex: none; }
+
+/* tiktok */
+.tiktok { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: clamp(28px, 4vw, 50px); border-radius: 28px; background: linear-gradient(135deg, #1a1c1f, #15171a); border: 1px solid var(--linea); overflow: hidden; position: relative; }
+.tiktok::after { content: ""; position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, #d1fe1733, transparent 65%); }
+.tiktok ul { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; color: #cfcbe9; }
+.tiktok li { display: flex; gap: 10px; }
+.tiktok li::before { content: "✓"; color: var(--lima); font-weight: 700; }
+.borrador { justify-self: center; width: 230px; aspect-ratio: 9/16; border-radius: 30px; padding: 9px; background: #111; box-shadow: 0 0 0 1px #ffffff22, 0 30px 60px #000c, 0 0 50px #22d3ee44; transform: rotate(5deg); position: relative; z-index: 1; }
+.borrador video { width: 100%; height: 100%; object-fit: cover; border-radius: 22px; display: block; }
+.borrador span { position: absolute; left: 50%; bottom: 22px; translate: -50% 0; white-space: nowrap; padding: 8px 14px; border-radius: 999px; background: var(--lima); color: #0f1113; font-weight: 700; font-size: 13px; }
+
+/* preguntas */
+.preguntas { margin-top: 40px; display: grid; gap: 10px; max-width: 820px; }
+details { border: 1px solid var(--linea); border-radius: 16px; background: var(--bg2); padding: 4px 20px; }
+summary { cursor: pointer; list-style: none; padding: 16px 0; font-weight: 700; font-size: 17px; display: flex; justify-content: space-between; gap: 14px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--lima); font-size: 22px; line-height: 1; transition: transform .25s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { margin: 0 0 18px; color: var(--muted); line-height: 1.6; }
+
+/* cierre */
+.cierre { text-align: center; padding: clamp(80px, 12vw, 150px) 0; position: relative; overflow: hidden; }
+.cierre::before { content: ""; position: absolute; left: 50%; top: 50%; width: 900px; height: 900px; translate: -50% -50%; background: radial-gradient(circle, #d1fe1722, transparent 60%); }
+.cierre h2 { position: relative; font: 900 clamp(34px, 6vw, 76px)/1 "Unbounded", sans-serif; letter-spacing: -.03em; margin: 0 auto 26px; max-width: 900px; }
+.cierre .btn { position: relative; }
+footer { border-top: 1px solid var(--linea); padding: 30px 0 40px; color: var(--muted); font-size: 14px; }
+footer .envolver { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; }
+footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .barra nav { display: none; }
+  .formatos { grid-template-columns: repeat(2, 1fr); }
+  .tiktok { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .portada { height: auto; min-height: 0; display: flex; flex-direction: column; }
+  .portada .envolver { justify-content: flex-start; padding-top: 92px; height: auto; width: 100%; }
+  #escena3d { position: relative; order: 2; height: min(470px, 62svh); flex: none; margin-top: -10px; }
+  .bajar { display: none; }
+  h1 { margin-top: 14px; }
+  .acciones .btn { flex: 1 1 auto; justify-content: center; }
+  .sin3d .portada .envolver { padding-bottom: 40px; }
+  .respaldo { height: 340px; transform: scale(.9); }
+  .paso { grid-template-columns: 1fr; gap: 6px; }
+  .paso:nth-child(n) { margin-left: 0; }
+  .formatos { gap: 12px; }
+  .tarjeta { padding: 9px; border-radius: 18px; }
+  .tarjeta h3 { font-size: 15px; margin-top: 10px; }
+  .tarjeta p { font-size: 12.5px; }
+  .tarjeta .chip { top: 16px; left: 16px; font-size: 9.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  h1 span, .bajada, .acciones, .letra-chica, .aparece { opacity: 1 !important; transform: none !important; }
+}
+
+/* ---------- agregados de la página real ---------- */
+section[id] { scroll-margin-top: 76px; }
+/* El título entra entero (no palabra por palabra) para que la coma no quede sola al principio de un renglón */
+.portada h1 { font-size: clamp(32px, 4.2vw, 58px); line-height: 1.04; text-wrap: balance; opacity: 0; transform: translateY(26px); animation: entra .8s .1s cubic-bezier(.2,.8,.2,1) forwards; }
+.portada h1 span { display: inline; opacity: 1; transform: none; animation: none; }
+@media (prefers-reduced-motion: reduce) { .portada h1 { opacity: 1 !important; transform: none !important; } }
+.letra-chica a { color: var(--ink); }
+.permisos { position: relative; z-index: 1; padding: 22px; border-radius: 20px; background: #0f1113; border: 1px solid var(--linea); }
+.permisos h3 { margin: 0 0 12px; font: 700 17px "Unbounded", sans-serif; }
+.permisos ul { margin: 0; padding-left: 18px; display: grid; gap: 10px; color: var(--muted); line-height: 1.5; font-size: 14.5px; }
+.permisos code { color: var(--lima); font-size: 13.5px; }
+.permisos p { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
+.tiktok-lado { display: grid; gap: 22px; justify-items: center; position: relative; z-index: 1; }
+.tiktok .btn { margin-top: 22px; }
