@@ -16,6 +16,23 @@
       document.head.appendChild(gaTag);
     }
   </script>
+  <!-- Píxel de Meta (portfolio ReelNext, conjunto de datos 1379623348575732): mide visitas y clics en «Empezar con Google» para las campañas de Meta Ads. Solo en reelnext.io. -->
+  <script>
+    if (/(^|\.)reelnext\.io$/.test(location.hostname)) {
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
+        t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+      }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "1379623348575732");
+      fbq("track", "PageView");
+      // Cada clic en «Empezar con Google» / «Entrar» cuenta como Lead (intención de registrarse).
+      document.addEventListener("click", function (ev) {
+        var a = ev.target && ev.target.closest ? ev.target.closest('a[href*="/auth/google/login"]') : null;
+        if (a && window.fbq) fbq("track", "Lead", { content_name: a.textContent.trim().slice(0, 40) });
+      }, true);
+    }
+  </script>
   <link rel="icon" type="image/png" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0f1113" />
