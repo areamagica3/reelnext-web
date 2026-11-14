@@ -32,7 +32,7 @@ a { color: inherit; }
 .barra nav { display: flex; gap: 22px; font-size: 14px; color: var(--muted); }
 .barra nav a { text-decoration: none; }
 .barra nav a:hover { color: var(--ink); }
-.entrar { padding: 9px 16px; border-radius: 999px; border: 1px solid #ffffff33; text-decoration: none; font-weight: 700; font-size: 14px; }
+.entrar { white-space: nowrap; padding: 9px 16px; border-radius: 999px; border: 1px solid #ffffff33; text-decoration: none; font-weight: 700; font-size: 14px; }
 .entrar:hover { border-color: var(--lima); color: var(--lima); }
 
 /* ---------- portada 3D ---------- */
