@@ -185,3 +185,12 @@ section[id] { scroll-margin-top: 76px; }
 .permisos p { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
 .tiktok-lado { display: grid; gap: 22px; justify-items: center; position: relative; z-index: 1; }
 .tiktok .btn { margin-top: 22px; }
+
+/* Sonido (2026-11-14): el celular central de la portada y el de «Mandá tus videos a TikTok» suenan cuando están a la vista.
+   Se tocan para silenciar o escuchar; el cartelito dice en qué está. */
+.sonido { position: absolute; z-index: 3; translate: -50% 0; white-space: nowrap; padding: 7px 13px; border-radius: 999px; border: 1px solid #ffffff33; background: #0f1113cc; color: #fff; font: 600 12.5px/1 "Space Grotesk", system-ui, sans-serif; cursor: pointer; backdrop-filter: blur(6px); transition: background .2s, color .2s, border-color .2s; }
+.sonido.suena { background: var(--lima); color: #0f1113; border-color: transparent; }
+.sonido[hidden] { display: none; }
+.sonido-fijo { left: 50%; top: 16px; }
+.con-sonido { cursor: pointer; }
+.borrador.con-sonido video { pointer-events: none; }

@@ -56,7 +56,7 @@
   <meta name="twitter:image" content="https://reelnext.io/og.png" />
   <!-- Datos estructurados para buscadores: quién es ReelNext, qué es la app y las preguntas frecuentes (las mismas de la página) -->
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://reelnext.io/#organizacion","name":"ReelNext","url":"https://reelnext.io/","logo":"https://reelnext.io/logo.png","email":"soporte@reelnext.io"},{"@type":"WebSite","@id":"https://reelnext.io/#sitio","name":"ReelNext","url":"https://reelnext.io/","inLanguage":"es","publisher":{"@id":"https://reelnext.io/#organizacion"}},{"@type":"SoftwareApplication","name":"ReelNext Studio","url":"https://reelnext.io/","applicationCategory":"MultimediaApplication","operatingSystem":"Web","inLanguage":"es","description":"Creá videos verticales con inteligencia artificial: elegís un tema y ReelNext arma guion, voz, imágenes y subtítulos. Listos para TikTok, Reels y Shorts.","image":"https://reelnext.io/og.png","publisher":{"@id":"https://reelnext.io/#organizacion"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Necesito saber editar videos?","acceptedAnswer":{"@type":"Answer","text":"No. Elegís el tema y las opciones; ReelNext hace el guion, la voz, las imágenes y el montaje."}},{"@type":"Question","name":"¿Cómo entro?","acceptedAnswer":{"@type":"Answer","text":"Con tu cuenta de Google, en un paso. La primera vez se crea tu cuenta de ReelNext."}},{"@type":"Question","name":"¿Cuánto cuesta?","acceptedAnswer":{"@type":"Answer","text":"Cada video consume créditos según lo que use (imágenes, voz, duración) y ves el precio antes de crearlo. Los créditos vienen con los planes mensuales, que podés ver dentro del estudio."}},{"@type":"Question","name":"¿En qué formato sale el video?","acceptedAnswer":{"@type":"Answer","text":"MP4 vertical de 1080×1920 a 30 cuadros por segundo, el formato de TikTok, Reels y Shorts."}},{"@type":"Question","name":"¿Puedo publicarlo en mis redes?","acceptedAnswer":{"@type":"Answer","text":"Sí. Descargás el video y la descripción con hashtags lista para copiar. Para TikTok, además, desde reelnext.io/tiktok podés mandarlo a tu bandeja de borradores."}},{"@type":"Question","name":"¿Por cuánto tiempo guardan mis videos?","acceptedAnswer":{"@type":"Answer","text":"Mientras tengas un plan activo. Si el plan vence, tenés unos días para renovarlo antes de que se oculten; el detalle está en los Términos del servicio."}}]}]}</script>
-  <link rel="stylesheet" href="/landing.css?v=1" />
+  <link rel="stylesheet" href="/landing.css?v=2" />
   <link rel="preload" href="/fonts/unbounded-v12.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/space-grotesk-v22.woff2" as="font" type="font/woff2" crossorigin />
 </head>
@@ -92,12 +92,13 @@
           <p class="letra-chica">Entrás o creás tu cuenta en un paso. Al continuar aceptás los <a href="https://studio.reelnext.io/terminos">Términos del servicio</a>.</p>
           <div class="respaldo" aria-hidden="true">
             <div class="tel t1"><video data-v="short" muted loop playsinline preload="none"></video></div>
-            <div class="tel t2"><video data-v="holistico" muted loop playsinline preload="none"></video></div>
+            <div class="tel t2 con-sonido" id="tel-central"><video data-v="comercial" data-sonido muted loop playsinline preload="none"></video></div>
             <div class="tel t3"><video data-v="versus" muted loop playsinline preload="none"></video></div>
           </div>
         </div>
       </div>
       <button class="tocar" id="tocar" type="button">▶ Tocá para ver los videos</button>
+      <button class="sonido" id="sonido-portada" type="button" hidden></button>
       <div class="bajar" aria-hidden="true">Bajá<i></i></div>
     </section>
 
@@ -125,9 +126,9 @@
       <div class="envolver">
         <h2 class="titulo-seccion aparece">Qué videos podés crear con ReelNext</h2>
         <div class="formatos">
-          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">VIDEOS</span><div class="marco"><video data-v="short" muted loop playsinline preload="none"></video></div><h3>Videos</h3><p>Mini documentales y rankings con imágenes generadas por IA, voz natural y música según el tema.</p></article>
+          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">VIDEOS</span><div class="marco"><video data-v="keanu" muted loop playsinline preload="none"></video></div><h3>Videos</h3><p>Mini documentales y rankings con imágenes generadas por IA, voz natural y música según el tema.</p></article>
           <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">VIRALES</span><div class="marco"><video data-v="viral" muted loop playsinline preload="none"></video></div><h3>Virales</h3><p>Un gancho fuerte, frases cortas con ritmo y una portada que frena el dedo.</p></article>
-          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">EXPLICATIVOS</span><div class="marco"><video data-v="explicativo" muted loop playsinline preload="none"></video></div><h3>Explicativos</h3><p>Motion graphics animados: números que cuentan, comparaciones, pasos y diagramas que se arman mientras la voz explica.</p></article>
+          <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">EXPLICATIVOS</span><div class="marco"><video data-v="enterre" muted loop playsinline preload="none"></video></div><h3>Explicativos</h3><p>Motion graphics animados: números que cuentan, comparaciones, pasos y diagramas que se arman mientras la voz explica.</p></article>
           <article class="tarjeta aparece" style="--tono:#d1fe17"><span class="chip">LISTAS</span><div class="marco"><video data-v="lista" muted loop playsinline preload="none"></video></div><h3>Listas</h3><p>Frases, consejos y listas que se leen de un vistazo, con un diseño que engancha en los primeros segundos.</p></article>
         </div>
         <ul class="trae" style="list-style:none;padding:0">
@@ -151,7 +152,7 @@
             <a class="btn btn-luz" href="/tiktok">Enviar un video a TikTok</a>
           </div>
           <div class="tiktok-lado">
-            <div class="borrador"><video data-v="promo" muted loop playsinline preload="none"></video><span>📥 Llegó a tus borradores</span></div>
+            <div class="borrador con-sonido" id="tel-tiktok"><video data-v="jack" data-sonido muted loop playsinline preload="none"></video><span>📥 Llegó a tus borradores</span><button class="sonido sonido-fijo" id="sonido-tiktok" type="button" hidden></button></div>
             <div class="permisos">
               <h3>Permisos que solicitamos a TikTok</h3>
               <ul>
@@ -203,6 +204,6 @@
   </footer>
 
   <script src="/vendor/three-r128.min.js" defer></script>
-  <script src="/landing.js?v=1" defer></script>
+  <script src="/landing.js?v=2" defer></script>
 </body>
 </html>

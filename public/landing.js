@@ -24,11 +24,80 @@
   document.querySelectorAll("video[data-v]").forEach((v) => {
     v.muted = true;
     v.poster = foto(v.dataset.v);
-    cercanos.observe(v);
+    if (!v.hasAttribute("data-sonido")) cercanos.observe(v); // los que suenan los maneja su zona (más abajo)
   });
   // Algunos navegadores no dejan arrancar videos solos: arrancan con el primer toque, clic o movimiento de la página
-  const arrancarTodo = () => document.querySelectorAll("video").forEach((v) => v.src && v.paused && v.play().catch(() => {}));
+  const arrancarTodo = () => document.querySelectorAll("video:not([data-sonido])").forEach((v) => v.src && v.paused && v.play().catch(() => {}));
   ["pointerdown", "touchstart", "scroll", "keydown"].forEach((ev) => addEventListener(ev, arrancarTodo, { passive: true }));
+
+  // ---------- Videos con sonido ----------
+  // El celular central de la portada y el de «Mandá tus videos a TikTok» suenan, en bucle, solo mientras están a la vista.
+  // Tocar el celular (o su cartelito) lo silencia o lo vuelve a hacer sonar. Los navegadores no dejan que un video arranque
+  // con sonido si la persona todavía no tocó nada en la página: en ese caso arranca mudo, el cartelito invita a tocar y
+  // el sonido se prende con el primer toque o clic en cualquier parte.
+  const zonas = [];
+  function pintar(z) {
+    if (!z.cartel) return;
+    const suena = !z.video.muted && !z.video.paused;
+    z.cartel.hidden = !z.aLaVista;
+    z.cartel.classList.toggle("suena", suena);
+    z.cartel.textContent = suena ? "🔊 Tocá para silenciar" : "🔇 Tocá para escuchar";
+    z.cartel.setAttribute("aria-label", suena ? "Silenciar el video" : "Escuchar el video");
+  }
+  function reproducir(z) {
+    const v = z.video;
+    if (!v.src) v.src = video(z.clave);
+    if (z.quiere) zonas.forEach((o) => o !== z && (o.video.muted = true)); // nunca dos sonando a la vez
+    v.muted = !z.quiere;
+    const p = v.play();
+    if (p && p.catch)
+      p.then(() => pintar(z)).catch(() => {
+        // el navegador no dejó arrancar con sonido: va mudo hasta el primer toque
+        v.muted = true;
+        v.play().then(() => pintar(z)).catch(() => pintar(z));
+      });
+    pintar(z);
+  }
+  function zonaConSonido({ video: v, clave, sector, cartel }) {
+    const z = { video: v, clave, cartel, aLaVista: false, quiere: true };
+    v.loop = true;
+    v.muted = true;
+    zonas.push(z);
+    z.alternar = () => {
+      // si está mudo (porque lo silenciaron o porque el navegador no dejó), pasa a sonar; si suena, se silencia
+      z.quiere = v.muted || v.paused;
+      reproducir(z);
+    };
+    if (cartel)
+      cartel.addEventListener("click", (e) => {
+        e.stopPropagation();
+        z.alternar();
+      });
+    new IntersectionObserver(
+      ([e]) => {
+        z.aLaVista = e.isIntersecting;
+        if (z.aLaVista) reproducir(z);
+        else {
+          // fuera de su sector: se calla y se detiene
+          v.muted = true;
+          v.pause();
+          pintar(z);
+        }
+      },
+      { threshold: 0.45 }
+    ).observe(sector);
+    return z;
+  }
+  // primer toque o clic en la página: lo que estaba mudo por el navegador empieza a sonar
+  const primerToque = () => zonas.forEach((z) => z.aLaVista && z.quiere && z.video.muted && reproducir(z));
+  ["click", "keydown"].forEach((ev) => addEventListener(ev, primerToque));
+
+  // El celular de «Mandá tus videos a TikTok»
+  const telTiktok = document.getElementById("tel-tiktok");
+  if (telTiktok) {
+    const zt = zonaConSonido({ video: telTiktok.querySelector("video"), clave: "jack", sector: telTiktok, cartel: document.getElementById("sonido-tiktok") });
+    telTiktok.addEventListener("click", () => zt.alternar());
+  }
 
   // Barra con fondo al bajar
   const barra = document.getElementById("barra");
@@ -65,7 +134,15 @@
   // ---------- Portada 3D ----------
   const canvas = document.getElementById("escena3d");
   const portada = document.getElementById("portada");
-  const sin3d = () => document.body.classList.add("sin3d");
+  const cartelPortada = document.getElementById("sonido-portada");
+  const sin3d = () => {
+    document.body.classList.add("sin3d");
+    const tel = document.getElementById("tel-central");
+    if (!tel) return;
+    const zc = zonaConSonido({ video: tel.querySelector("video"), clave: "comercial", sector: tel, cartel: cartelPortada });
+    tel.addEventListener("click", () => zc.alternar());
+    if (cartelPortada) tel.appendChild(cartelPortada), cartelPortada.classList.add("sonido-fijo");
+  };
   if (!window.THREE || !canvas) return sin3d();
   const THREE = window.THREE;
   let renderer;
@@ -151,7 +228,7 @@
 
   const W = 1.0, H = 1.96, SW = 0.9, SH = 1.6;
   const videos = [];
-  function celular(clave, color) {
+  function celular(clave, color, conSonido) {
     const g = new THREE.Group();
     const cuerpo = new THREE.Mesh(
       new THREE.ExtrudeGeometry(forma(W, H, 0.15), { depth: 0.07, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 3, curveSegments: 10 }),
@@ -166,7 +243,8 @@
     v.setAttribute("playsinline", "");
     v.preload = "auto";
     v.src = video(clave);
-    videos.push(v);
+    if (conSonido) g.userData.video = v;
+    else videos.push(v);
     // Primero la foto del video; cuando el video arranca de verdad, la pantalla pasa al video
     const tFoto = new THREE.TextureLoader().load(foto(clave));
     tFoto.encoding = THREE.sRGBEncoding;
@@ -180,7 +258,7 @@
       mat.map = tex;
       mat.needsUpdate = true;
     });
-    v.play().catch(() => {});
+    if (!conSonido) v.play().catch(() => {});
     const pantalla = new THREE.Mesh(conUV(new THREE.ShapeGeometry(forma(SW, SH, 0.1), 10), SW, SH), mat);
     pantalla.position.z = 0.025;
     g.add(pantalla);
@@ -202,10 +280,23 @@
   scene.add(grupo);
   const tels = [
     { m: celular("short", 0x22d3ee), x: -1.32, y: -0.05, z: -0.55, ry: 0.5, rz: 0.06, f: 0 },
-    { m: celular("holistico", 0xf472b6), x: 0, y: 0.18, z: 0.25, ry: 0, rz: 0, f: 2.1 },
+    { m: celular("comercial", 0xf472b6, true), x: 0, y: 0.18, z: 0.25, ry: 0, rz: 0, f: 2.1 },
     { m: celular("versus", 0xfb923c), x: 1.32, y: -0.05, z: -0.55, ry: -0.5, rz: -0.06, f: 4.2 },
   ];
   tels.forEach((t) => grupo.add(t.m));
+
+  // El celular central suena mientras la portada está a la vista; tocarlo lo silencia o lo hace sonar
+  const central = tels[1].m;
+  const zonaCentral = zonaConSonido({ video: central.userData.video, clave: "comercial", sector: canvas, cartel: cartelPortada });
+  const rayo = new THREE.Raycaster();
+  addEventListener("click", (e) => {
+    if (e.target.closest && e.target.closest("a, button, summary, input, video")) return;
+    const r = canvas.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) return;
+    rayo.setFromCamera({ x: ((e.clientX - r.left) / r.width) * 2 - 1, y: -((e.clientY - r.top) / r.height) * 2 + 1 }, camera);
+    if (rayo.intersectObject(central, true).length) zonaCentral.alternar();
+  });
+  const pie = new THREE.Vector3();
 
   // Tamaño: en la computadora los celulares ocupan la mitad derecha; en el celular, una franja debajo del texto
   let angosto = false;
@@ -274,5 +365,14 @@
       puntos.rotation.y = t * 0.02;
     }
     renderer.render(scene, camera);
+    if (cartelPortada && !cartelPortada.hidden) {
+      // el cartelito va pegado debajo del celular central
+      central.updateWorldMatrix(true, false);
+      pie.set(0, -H / 2 - 0.16, 0.05).applyMatrix4(central.matrixWorld).project(camera);
+      const r = canvas.getBoundingClientRect();
+      const o = portada.getBoundingClientRect();
+      cartelPortada.style.left = `${r.left - o.left + ((pie.x + 1) / 2) * r.width}px`;
+      cartelPortada.style.top = `${Math.min(o.height - 40, r.top - o.top + ((1 - pie.y) / 2) * r.height)}px`;
+    }
   })();
 })();
