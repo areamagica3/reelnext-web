@@ -60,6 +60,10 @@ h1 span { display: inline-block; opacity: 0; transform: translateY(26px); animat
 .btn-luz svg { width: 18px; height: 18px; }
 .btn-linea { border: 1px solid #ffffff33; color: var(--ink); }
 .btn-linea:hover { border-color: var(--lima); transform: translateY(-2px); }
+/* Video gratis para cuentas nuevas (cambio 204 del estudio) */
+.regalo { margin-top: 16px; font-size: 15px; color: var(--ink); opacity: 0; animation: entra .8s .7s forwards; }
+.regalo b { color: var(--ink); }
+.cierre .regalo { margin: 10px 0 18px; }
 .letra-chica { margin-top: 14px; font-size: 12.5px; color: var(--muted); opacity: 0; animation: entra .8s .8s forwards; }
 .bajar { position: absolute; z-index: 2; left: 50%; bottom: 22px; translate: -50% 0; font-size: 12px; color: #8e8ab0; letter-spacing: .14em; text-transform: uppercase; display: grid; place-items: center; gap: 6px; }
 .bajar i { width: 1px; height: 34px; background: linear-gradient(var(--lima), transparent); animation: baja 1.8s ease-in-out infinite; }
@@ -168,7 +172,7 @@ footer a:hover { color: var(--ink); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  h1 span, .bajada, .acciones, .letra-chica, .aparece { opacity: 1 !important; transform: none !important; }
+  h1 span, .bajada, .acciones, .letra-chica, .regalo, .aparece { opacity: 1 !important; transform: none !important; }
 }
 
 /* ---------- agregados de la página real ---------- */
